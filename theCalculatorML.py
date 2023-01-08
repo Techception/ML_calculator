@@ -13,7 +13,8 @@ import random
 
 def imagine():
     # NUMBER OF OPERATIONS 
-    OPERATIONS = int(random.random()*10) 
+    #OPERATIONS = int(random.choice(range(1, 2))) 
+    OPERATIONS = 1
     # program decides how many operations to try e.g. 1 = x + y (1 addition), 2 = x + y * z (1 additiona 1 multiply) 
     # wouldnt expect same operator in the same operatin level e.g. x + y + z (not ok if all real numbers as it could be simplified) 
     # however program might be able to benefit by telling non simplified forms 
@@ -25,7 +26,7 @@ def imagine():
     # we just need an array equal to this size
     # then ill just add a random number 
     # ill begin with positive real numbers for now but consider extending later 
-    values = [int(random.random()*10) for i in range(NUM_OF_VALUES)]
+    values = [int(random.choice(range(0, 6))) for i in range(NUM_OF_VALUES)]
     #print(f"values are: {values}")
     #print(f"popped value is {values.pop(0)}")
     #print(f"values are now: {values}")
@@ -33,7 +34,8 @@ def imagine():
     # this could affect the simplification requirement 
 
     #SPECIFIC MATHEMATICAL OPERATORS TO TRY 
-    SET_OF_OPERATORS = ['+','-','*','/','**']
+    #SET_OF_OPERATORS = ['+','-','*','/','**']
+    SET_OF_OPERATORS = ['+','-']
     chosen_operators = random.choices(SET_OF_OPERATORS, k=OPERATIONS)
 
     #FORMULA
@@ -69,20 +71,41 @@ def imagine():
     return formula.strip()
 
 
-calculation = imagine()
-ANSWER = 8
-TEST_QUESTION = f'True or False, \n\t{calculation} = {ANSWER}\n'
-test = compile(f"print(TEST_QUESTION, {ANSWER} == {calculation})", 'mulstring', 'exec')
-# should have a variable string that is the code for the test condition 
-# e.g. 8 == test.  
-# where answer = 8. 
-# so this should have arguments to allow for different answers at a future stage 
-#print(test)
-#calculation = compile()
-answer = 8 
-exec(test)
-#print(test.strip())
+#def calculate(formula):
+#    calculation = f"test = {formula}"
+#    return exec(calculation)
+#calculation = calculate(formula)
 
-#todo: consider this: 
-#exec(calculation)
-#print(_)  #not defined here 
+def testFormula(formula, ANSWER = 8):
+    calculation = f"test = {formula}"
+    exec(calculation)
+
+    TEST_QUESTION = f'True or False, \n\t{formula} = {ANSWER}\n'
+    test = (ANSWER == calculation)
+
+    #if test:
+    print(TEST_QUESTION)
+    print(test)
+    return test
+
+
+
+def main():
+    test = False
+    #cnt = 0
+    #while not(test):
+    for i in range(250):
+        #print(cnt)
+        #cnt += 1
+        formula = imagine()
+        try:
+            test = testFormula(formula)
+            #print(type( testFormula(formula)))
+            #print(test)
+        except:
+            pass
+
+
+print(__name__)
+if __name__ == '__main__':
+    main()
