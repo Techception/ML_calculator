@@ -94,21 +94,20 @@ def testFormula(formula, ANSWER = 8):
     print(TEST_QUESTION)
     print(test)
     #print(FORMULA)
-    #return test
+    return test
 
 
 
 def main():
     test = False
     #cnt = 0
-    #while not(test):
-    for i in range(250):
+    while not(test):
+    #for i in range(250):
         #print(cnt)
-        print(i)
+        #print(i)
         #formula = imagine()
         try:
-            #test = 
-            testFormula(imagine())
+            test = testFormula(imagine())
             #print(type( testFormula(formula)))
             #print(test)
         except:
