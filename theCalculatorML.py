@@ -77,8 +77,15 @@ def imagine():
 #calculation = calculate(formula)
 
 def testFormula(formula, ANSWER = 8):
-    calculation = f"test = {formula}"
-    exec(calculation)
+    #calculation = compile(f"calculation = formula", 'calc', 'eval')
+    #print(globals())
+    #print(locals())
+    loc = {}
+    #exec(f"calculation = {formula}", globals(), loc)
+    exec(f"calculation = {formula}", None, loc)
+    calculation = loc['calculation']
+    
+    print(type(calculation))
 
     TEST_QUESTION = f'True or False, \n\t{formula} = {ANSWER}\n'
     test = (ANSWER == calculation)
@@ -86,7 +93,8 @@ def testFormula(formula, ANSWER = 8):
     #if test:
     print(TEST_QUESTION)
     print(test)
-    return test
+    #print(FORMULA)
+    #return test
 
 
 
@@ -96,10 +104,11 @@ def main():
     #while not(test):
     for i in range(250):
         #print(cnt)
-        #cnt += 1
-        formula = imagine()
+        print(i)
+        #formula = imagine()
         try:
-            test = testFormula(formula)
+            #test = 
+            testFormula(imagine())
             #print(type( testFormula(formula)))
             #print(test)
         except:
@@ -109,3 +118,6 @@ def main():
 print(__name__)
 if __name__ == '__main__':
     main()
+    #testFormula(imagine())
+    #print(globals())
+    #print(locals())
