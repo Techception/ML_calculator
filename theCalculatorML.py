@@ -34,8 +34,8 @@ def imagine():
     # this could affect the simplification requirement 
 
     #SPECIFIC MATHEMATICAL OPERATORS TO TRY 
-    #SET_OF_OPERATORS = ['+','-','*','/','**']
-    SET_OF_OPERATORS = ['+','-']
+    SET_OF_OPERATORS = ['+','-','*','/','**','%']
+    #SET_OF_OPERATORS = ['+','-']
     chosen_operators = random.choices(SET_OF_OPERATORS, k=OPERATIONS)
 
     #FORMULA
@@ -85,33 +85,33 @@ def testFormula(formula, ANSWER = 8):
     exec(f"calculation = {formula}", None, loc)
     calculation = loc['calculation']
     
-    print(type(calculation))
+    #print(type(calculation))
 
     TEST_QUESTION = f'True or False, \n\t{formula} = {ANSWER}\n'
     test = (ANSWER == calculation)
 
-    #if test:
-    print(TEST_QUESTION)
-    print(test)
+    if test:
+        print(TEST_QUESTION)
+        print(test)
     #print(FORMULA)
     return test
 
-
-
 def main():
-    test = False
+    
     #cnt = 0
-    while not(test):
-    #for i in range(250):
-        #print(cnt)
+    for i in range(250):
         #print(i)
-        #formula = imagine()
-        try:
-            test = testFormula(imagine())
-            #print(type( testFormula(formula)))
-            #print(test)
-        except:
-            pass
+        test = False
+        while not(test):
+            #print(cnt)
+            #print(i)
+            #formula = imagine()
+            try:
+                test = testFormula(imagine())
+                #print(type( testFormula(formula)))
+                #print(test)
+            except:
+                pass
 
 
 print(__name__)
