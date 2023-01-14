@@ -14,8 +14,8 @@ import random
 
 def imagine():
     # NUMBER OF OPERATIONS 
-    #OPERATIONS = int(random.choice(range(1, 2))) 
-    OPERATIONS = 1
+    OPERATIONS = int(random.choice(range(1, 4))) 
+    #OPERATIONS = 1
     # program decides how many operations to try e.g. 1 = x + y (1 addition), 2 = x + y * z (1 additiona 1 multiply) 
     # wouldnt expect same operator in the same operatin level e.g. x + y + z (not ok if all real numbers as it could be simplified) 
     # however program might be able to benefit by telling non simplified forms 
@@ -27,7 +27,7 @@ def imagine():
     # we just need an array equal to this size
     # then ill just add a random number 
     # ill begin with positive real numbers for now but consider extending later 
-    values = [int(random.choice(range(0, 6))) for i in range(NUM_OF_VALUES)]
+    values = [int(random.choice(range(0, 9))) for i in range(NUM_OF_VALUES)]
     #print(f"values are: {values}")
     #print(f"popped value is {values.pop(0)}")
     #print(f"values are now: {values}")
@@ -71,48 +71,35 @@ def imagine():
     return formula.strip()
 
 def testFormula(formula, ANSWER):
-    #calculation = compile(f"calculation = formula", 'calc', 'eval')
-    #print(globals())
-    #print(locals())
     loc = {} #the exec functions local variables produced 
-    #exec(f"calculation = {formula}", globals(), loc)
-    exec(f"calculation = {formula}", None, loc)
-    calculation = loc['calculation']
-    
-    #print(type(calculation))
+    try: 
+        exec(f"calculation = {formula}", None, loc)
+        calculation = loc['calculation']
+    except: 
+        calculation = 'NaN'
 
-    TEST_QUESTION = f'True or False, \n\t{formula} = {ANSWER}\n'
     test = (ANSWER == calculation)
 
-    #if test:
-        #print(TEST_QUESTION)
-        #print(test)
-    #print(FORMULA)
     return test
 
 
 
 def main():
     
-    #cnt = 0
     ANSWER = 8
     validFormulas = []
     for i in range(5000):
-        #print(i)
-
-        test = False
+        print(i)
         formula = imagine()
+        #TEST_QUESTION = f'{formula} = {ANSWER}'
 
         if formula in validFormulas:
             continue 
 
-        try:
-            test = testFormula(formula, ANSWER)
-        except:
-            continue 
-
-        if test == True:
-
+        #TEST_QUESTION = f'{formula} = {ANSWER}'
+        #test = testFormula(formula, ANSWER)
+        if testFormula(formula, ANSWER):
+            TEST_QUESTION = f'{formula} = {ANSWER}'
             validFormulas.append(formula)
             TEST_QUESTION = f'{formula} = {ANSWER}'
             print(TEST_QUESTION)
