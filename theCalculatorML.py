@@ -10,6 +10,7 @@
 # program will need to imagine combinations to be tested 
 
 import random
+#from colorama import Force
 
 def imagine():
     # NUMBER OF OPERATIONS 
@@ -35,7 +36,6 @@ def imagine():
 
     #SPECIFIC MATHEMATICAL OPERATORS TO TRY 
     SET_OF_OPERATORS = ['+','-','*','/','**','%']
-    #SET_OF_OPERATORS = ['+','-']
     chosen_operators = random.choices(SET_OF_OPERATORS, k=OPERATIONS)
 
     #FORMULA
@@ -70,17 +70,11 @@ def imagine():
 
     return formula.strip()
 
-
-#def calculate(formula):
-#    calculation = f"test = {formula}"
-#    return exec(calculation)
-#calculation = calculate(formula)
-
-def testFormula(formula, ANSWER = 8):
+def testFormula(formula, ANSWER):
     #calculation = compile(f"calculation = formula", 'calc', 'eval')
     #print(globals())
     #print(locals())
-    loc = {}
+    loc = {} #the exec functions local variables produced 
     #exec(f"calculation = {formula}", globals(), loc)
     exec(f"calculation = {formula}", None, loc)
     calculation = loc['calculation']
@@ -90,28 +84,39 @@ def testFormula(formula, ANSWER = 8):
     TEST_QUESTION = f'True or False, \n\t{formula} = {ANSWER}\n'
     test = (ANSWER == calculation)
 
-    if test:
-        print(TEST_QUESTION)
-        print(test)
+    #if test:
+        #print(TEST_QUESTION)
+        #print(test)
     #print(FORMULA)
     return test
+
+
 
 def main():
     
     #cnt = 0
-    for i in range(250):
+    ANSWER = 8
+    validFormulas = []
+    for i in range(5000):
         #print(i)
+
         test = False
-        while not(test):
-            #print(cnt)
-            #print(i)
-            #formula = imagine()
-            try:
-                test = testFormula(imagine())
-                #print(type( testFormula(formula)))
-                #print(test)
-            except:
-                pass
+        formula = imagine()
+
+        if formula in validFormulas:
+            continue 
+
+        try:
+            test = testFormula(formula, ANSWER)
+        except:
+            continue 
+
+        if test == True:
+
+            validFormulas.append(formula)
+            TEST_QUESTION = f'{formula} = {ANSWER}'
+            print(TEST_QUESTION)
+            #print(validFormulas)
 
 
 print(__name__)
