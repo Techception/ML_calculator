@@ -28,11 +28,6 @@ def imagine():
     # then ill just add a random number 
     # ill begin with positive real numbers for now but consider extending later 
     values = [int(random.choice(range(0, 9))) for i in range(NUM_OF_VALUES)]
-    #print(f"values are: {values}")
-    #print(f"popped value is {values.pop(0)}")
-    #print(f"values are now: {values}")
-    # this will return non unique values.  
-    # this could affect the simplification requirement 
 
     #SPECIFIC MATHEMATICAL OPERATORS TO TRY 
     SET_OF_OPERATORS = ['+','-','*','/','**','%']
@@ -46,20 +41,14 @@ def imagine():
     # turns out turning this to a string required turning the int into string first 
     #as noted via #formula = '.'.join(formula)
     # so better to use str throughout 
-    formula = str() #'formula ='
+    formula = f"{values.pop()} "
     for i in range(NUM_OF_VALUES):
         #this loop will fail if OPERATIONS = 0 
 
         #print(f"values are now: {values}")
-        #formula.append(values.pop()) # what values getting popped again? 
+        formula = formula + f"{chosen_operators.pop()} "
         formula = formula + f"{values.pop()} "
 
-        if len(values) != 0:
-            #formula.append(chosen_operators.pop())
-            formula = formula + f"{chosen_operators.pop()} "
-        
-        #formula.strip()
-        #print(formula)
         #would like to see the formula presented to the user in a more conventional fasion 
         #eg superscript powers, divide sign for divide, simplification 
         #print(len(values))
@@ -76,7 +65,7 @@ def testFormula(formula, ANSWER):
         exec(f"calculation = {formula}", None, loc)
         calculation = loc['calculation']
     except: 
-        calculation = 'NaN'
+        calculation = None
 
     test = (ANSWER == calculation)
 
@@ -88,22 +77,24 @@ def main():
     
     ANSWER = 8
     validFormulas = []
-    for i in range(5000):
+    for i in range(500):
         print(i)
         formula = imagine()
-        #TEST_QUESTION = f'{formula} = {ANSWER}'
+        TEST_QUESTION = f'{formula} = {ANSWER}'
+        #print(TEST_QUESTION)
 
         if formula in validFormulas:
             continue 
 
         #TEST_QUESTION = f'{formula} = {ANSWER}'
         #test = testFormula(formula, ANSWER)
-        if testFormula(formula, ANSWER):
-            TEST_QUESTION = f'{formula} = {ANSWER}'
-            validFormulas.append(formula)
-            TEST_QUESTION = f'{formula} = {ANSWER}'
-            print(TEST_QUESTION)
-            #print(validFormulas)
+        if not(testFormula(formula, ANSWER)):
+            continue 
+
+        validFormulas.append(formula)
+        #TEST_QUESTION = f'{formula} = {ANSWER}'
+        print(TEST_QUESTION)
+        #print(validFormulas)
 
 
 print(__name__)
